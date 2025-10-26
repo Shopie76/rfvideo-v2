@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root { --bg:#0b1220; --card:#121a2b; --muted:#9db0d3; --text:#e8f0ff; --accent:#62a0ff; --good:#22c55e; --bad:#ef4444;}
+    *{box-sizing:border-box} body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--text)}
+    .wrap{max-width:1100px;margin:24px auto;padding:16px}
+    .row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .card{background:var(--card);border:1px solid #20304d;border-radius:14px;padding:16px}
+    h1{margin:0 0 14px;font-size:28px} h2{margin:0 0 10px;font-size:18px}
+    table{width:100%;border-collapse:collapse} th,td{padding:8px 10px;border-bottom:1px solid #22314e;font-size:14px}
+    th{color:var(--muted);text-align:left} .muted{color:var(--muted)} .btn{cursor:pointer;border:0;padding:8px 12px;border-radius:10px;background:#1b2b4b;color:var(--text)}
+    .btn:hover{filter:brightness(1.15)} .btn-primary{background:var(--accent)} .btn-danger{background:var(--bad)} .btn-good{background:var(--good);color:#07140f}
+    input{width:100%;padding:10px;border-radius:10px;border:1px solid #20304d;background:#0c1527;color:var(--text)}
+    .grid-3{display:grid;grid-template-columns:1fr 1fr 140px;gap:10px}
+    a.link{color:var(--accent);text-decoration:none}
+    .topbar{display:flex;gap:10px;align-items:center;justify-content:space-between;margin-bottom:12px}
+    .pill{font-size:12px;padding:4px 8px;border-radius:999px;background:#20304d;color:var(--muted)}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <h1>👑 Admin Dashboard</h1>
+      <div class="pill" id="adminUid"></div>
+    </div>
+
+    <div class="row">
+      <div class="card">
+        <h2>🙍‍♂️ Users</h2>
+        <button class="btn" onclick="loadUsers()">🔁 Load All Users</button>
+        <div class="muted" style="margin-top:6px">Role/Verified/Balance editable from actions.</div>
+        <div style="overflow:auto;margin-top:10px">
+          <table>
+            <thead><tr><th>Name</th><th>Email</th><th>Balance</th><th>Role</th><th>Verified</th><th>Action</th></tr></thead>
+            <tbody id="userTable"><tr><td class="muted" colspan="6">…</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>💸 Add / Deduct Balance</h2>
+        <div class="grid-3">
+          <input id="uid" placeholder="User UID" />
+          <input id="amount" placeholder="Amount (USD)" type="number" />
+          <button class="btn btn-primary" onclick="addBalance()">+ Add</button>
+        </div>
+        <div class="grid-3" style="margin-top:8px">
+          <input id="uid2" placeholder="User UID" />
+          <input id="amount2" placeholder="Amount (USD)" type="number" />
+          <button class="btn btn-danger" onclick="deductBalance()">− Deduct</button>
+        </div>
+        <div id="msg" class="muted" style="margin-top:10px"></div>
+
+        <h2 style="margin-top:16px">✅ Verify User</h2>
+        <div class="grid-3">
+          <input id="vuid" placeholder="User UID" />
+          <div></div>
+          <button class="btn btn-good" onclick="verifyUser()">Verify</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" style="margin-top:16px">
+      <div class="card">
+        <h2>🖼️ Sliding Banners</h2>
+        <div class="grid-3">
+          <input id="bannerUrl" placeholder="Image URL (1200x400 or similar)" />
+          <input id="bannerLink" placeholder="Optional: click link (https://…)" />
+          <button class="btn btn-primary" onclick="addBanner()">+ Add Banner</button>
+        </div>
+        <div style="overflow:auto;margin-top:12px">
+          <table>
+            <thead><tr><th>Preview</th><th>Link</th><th>Active</th><th>Action</th></tr></thead>
+            <tbody id="bannerTable"><tr><td class="muted" colspan="4">…</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>🏧 Withdrawals</h2>
+        <div class="muted">Latest requests</div>
+        <div style="overflow:auto;margin-top:12px">
+          <table>
+            <thead><tr><th>ID</th><th>UID</th><th>Method</th><th>Amount</th><th>Status</th><th>Action</th></tr></thead>
+            <tbody id="wdTable"><tr><td class="muted" colspan="6">…</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <p class="muted" style="margin-top:14px">
+      ⚙️ First time setup? Open <a class="link" href="admin-setup.html">admin-setup.html</a> once, paste your Firebase config, then reload this page.
+    </p>
+  </div>
+
+  <script type="module" src="admin.js"></script>
+</body>
+</html>
