@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Panel - RF Video</title>
+  <style>
+    body{background:#0b1220;color:#e5e7eb;font-family:Inter,system-ui,sans-serif;margin:0;padding:20px;}
+    .card{background:#111827;border-radius:14px;padding:20px;box-shadow:0 6px 18px #0006;margin-bottom:16px;}
+    .btn{background:#2563eb;border:none;color:#fff;padding:10px 16px;border-radius:10px;cursor:pointer;}
+    .btn-outline{background:transparent;border:1px solid #2563eb;color:#60a5fa;}
+    .input{width:100%;padding:10px 12px;margin-bottom:10px;border-radius:8px;border:1px solid #1f2937;background:#0f172a;color:#fff;}
+    .title{font-size:22px;font-weight:700;margin-bottom:12px;}
+    table{width:100%;border-collapse:collapse;margin-top:10px;}
+    th,td{border-bottom:1px solid #1f2937;padding:8px;text-align:left;vertical-align:top;}
+    tr:hover{background:#1f2937;}
+    .row{display:flex;gap:8px;align-items:center}
+    .muted{opacity:.8;font-size:12px}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="title">👑 Admin Dashboard</div>
+    <button class="btn" onclick="loadUsers()">🔄 Load All Users</button>
+    <table id="userTable">
+      <thead>
+        <tr>
+          <th>Name</th><th>Email</th><th>Balance</th><th>Role</th><th>Verified</th><th>Action</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="title">💰 Add / Deduct Balance</div>
+    <div class="row">
+      <input id="uid" class="input" placeholder="User UID">
+      <input id="amount" class="input" type="number" placeholder="Amount (USD)">
+    </div>
+    <div class="row">
+      <button class="btn" onclick="addBalance()">+ Add</button>
+      <button class="btn btn-outline" onclick="deductBalance()">− Deduct</button>
+    </div>
+    <p id="msg" class="muted"></p>
+  </div>
+
+  <div class="card">
+    <div class="title">✅ Verify User</div>
+    <div class="row">
+      <input id="v_uid" class="input" placeholder="User UID">
+      <button class="btn" onclick="verifyUser()">Verify</button>
+    </div>
+  </div>
+
+  <!-- BANNERS -->
+  <div class="card">
+    <div class="title">🖼️ Sliding Banners</div>
+    <input id="bn_img" class="input" placeholder="Image URL (1200x400 বা অনুরূপ)" />
+    <input id="bn_link" class="input" placeholder="Optional: Click link (https://...)" />
+    <button class="btn" onclick="addBanner()">+ Add Banner</button>
+    <p class="muted">নিচে লিস্টে সব ব্যানার দেখাবে।</p>
+
+    <table id="bannerTable" style="margin-top:8px">
+      <thead>
+        <tr>
+          <th>Preview</th><th>Link</th><th>Active</th><th>Action</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <!-- WITHDRAWALS -->
+  <div class="card">
+    <div class="title">💸 Withdrawals</div>
+    <div class="row">
+      <select id="wd_filter" class="input">
+        <option value="all">All</option>
+        <option value="pending">Pending</option>
+        <option value="approved">Approved</option>
+        <option value="rejected">Rejected</option>
+      </select>
+      <button class="btn" onclick="loadWithdrawals()">Reload</button>
+    </div>
+    <table id="wdTable">
+      <thead>
+        <tr>
+          <th>ID</th><th>UID</th><th>Method</th><th>Amount</th><th>Status</th><th>Action</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <script type="module" src="admin.js"></script>
+</body>
+</html>
