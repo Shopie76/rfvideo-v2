@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin Setup</title>
+  <style>
+    body{font-family:system-ui,Segoe UI,Roboto,Ubuntu,Arial;background:#0b1220;color:#e5eefc;margin:0;padding:32px}
+    .card{background:#111827;border:1px solid #1f2937;border-radius:16px;padding:16px;max-width:860px}
+    textarea,input{width:100%;box-sizing:border-box;background:#0b1220;color:#e5eefc;border:1px solid #334155;border-radius:10px;padding:10px;font-size:16px}
+    label{display:block;margin:16px 0 6px 0}
+    button{background:#2563eb;border:none;color:white;padding:10px 14px;border-radius:10px;cursor:pointer}
+    .muted{opacity:.7}
+  </style>
+</head>
+<body>
+  <h1>Admin Setup</h1>
+  <div class="card">
+    <p class="muted">Firebase console → Project settings → <b>SDK setup & configuration</b> → <b>Config</b> → copy the JS object and paste below as JSON.</p>
+    <label>Firebase config (JSON)</label>
+    <textarea id="cfg" rows="10" placeholder='{"apiKey":"...","authDomain":"...","databaseURL":"...","projectId":"...","storageBucket":"<project>.appspot.com","messagingSenderId":"...","appId":"..."}'></textarea>
+    <label>Admin UIDs (comma separated)</label>
+    <input id="uids" placeholder="uid1,uid2">
+    <div style="margin-top:12px;display:flex;gap:8px;align-items:center">
+      <button id="save">Save config</button>
+      <span id="msg" class="muted"></span>
+    </div>
+  </div>
+  <script type="module">
+    const CFG_KEY='RFV2_CONFIG', ADMIN_KEY='RFV2_ADMIN_UIDS';
+    try{
+      const cfg=localStorage.getItem(CFG_KEY); if(cfg) document.getElementById('cfg').value = cfg;
+      const ids=localStorage.getItem(ADMIN_KEY) || ''; document.getElementById('uids').value = ids;
+    }catch{}
+    document.getElementById('save').onclick=()=>{
+      const cfgTxt=document.getElementById('cfg').value.trim();
+      const uids=document.getElementById('uids').value.trim();
+      try{
+        const obj=JSON.parse(cfgTxt);
+        if(!obj.apiKey || !obj.projectId){ throw new Error('Missing fields'); }
+        localStorage.setItem(CFG_KEY, JSON.stringify(obj));
+        localStorage.setItem(ADMIN_KEY, uids);
+        document.getElementById('msg').textContent='Saved! Now open admin.html.';
+      }catch(e){
+        document.getElementById('msg').textContent='Invalid JSON. ' + e.message;
+      }
+    };
+  </script>
+</body>
+</html>
