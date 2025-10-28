@@ -1,331 +1,270 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>RF Video</title>
+  <title>হিলফুল ফুজুল সুন্নি যুব ফাউন্ডেশন – ফরম + আইডি কার্ড</title>
   <style>
-    :root{ --brand:#1f6feb; --bg:#0b1220; --card:#111827; --text:#e5e7eb; --muted:#9ca3af; --accent:#22c55e; --danger:#ef4444;}
-    *{box-sizing:border-box}
-    body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;background:linear-gradient(180deg,#0b1220,#0f172a 40%,#0b1220);color:var(--text)}
-    .container{max-width:960px;margin:0 auto;padding:16px}
-    .hidden{display:none !important}
-    .btn{background:var(--brand);color:#fff;border:none;border-radius:12px;padding:12px 16px;font-weight:600;cursor:pointer;box-shadow:0 10px 20px #0005}
-    .btn.outline{background:transparent;border:1px solid #334155}
-    .btn.warn{background:var(--danger)}
-    .input{width:100%;padding:12px 14px;border-radius:12px;border:1px solid #334155;background:#0b1220;color:var(--text)}
-    .card{background:rgba(17,24,39,.7);backdrop-filter:blur(6px);border:1px solid #1f2937;border-radius:16px;padding:16px;box-shadow:0 10px 30px #0006}
-    .title{font-size:28px;font-weight:800}
-    .muted{color:var(--muted)}
-    .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-    .topbar{display:flex;align-items:center;gap:8px}
-    .topbar .back{cursor:pointer;margin-right:4px}
-    .icons{margin-left:auto;display:flex;gap:12px;align-items:center}
-    .icon{width:24px;height:24px;filter:invert(1);cursor:pointer}
-    .banner{position:relative;height:160px;border-radius:16px;overflow:hidden}
-    .banner a{display:block;height:100%}
-    .banner img{width:100%;height:100%;object-fit:cover}
-    .caption{position:absolute;left:12px;bottom:12px;background:#0007;padding:8px 10px;border-radius:10px}
-    .nav{position:fixed;left:0;right:0;bottom:0;padding:10px 12px;background:rgba(10,15,25,.85);backdrop-filter:blur(10px);border-top:1px solid #1f2937}
-    .nav .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
-    .nav .item{display:flex;flex-direction:column;align-items:center;gap:6px;color:#d1d5db}
-    .nav .item.active{color:#fff}
-    .badge{display:inline-flex;align-items:center;gap:6px;background:#0b1323;border:1px solid #1f2937;border-radius:999px;padding:6px 10px}
-    .avatar{width:80px;height:80px;border-radius:50%;background:#0b1323;border:1px solid #1f2937;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:28px}
-    .verify{display:inline-flex;align-items:center;gap:6px;padding:4px 8px;border-radius:999px;border:1px solid #334155;background:#0b1323}
-    .verify.glow{box-shadow:0 0 14px #22c55e66, 0 0 30px #22c55e33}
-    .pill{padding:8px 12px;border-radius:999px;border:1px dashed #334155}
-    .mono{font-family:ui-monospace, Menlo, Consolas, "Courier New", monospace}
-    #splash{min-height:100dvh;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:20px}
-    .spin-name{font-size:42px;font-weight:900;letter-spacing:1px;display:inline-block;animation:spin 4s linear infinite}
-    @keyframes spin{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}
-    .modal{position:fixed;inset:0;background:#0008;display:flex;align-items:center;justify-content:center;padding:16px}
-    .modal .box{max-width:560px;width:100%}
+    *{ -webkit-print-color-adjust: exact; print-color-adjust: exact; box-sizing: border-box }
+    body{ font-family:'Noto Sans Bengali',system-ui,-apple-system,Segoe UI,Roboto,Arial; background:#f3f4f6; margin:0 }
+    .wrap{ max-width:760px; margin:0 auto; padding:16px }
+    .card{ background:#fff; border:1px solid #e5e7eb; border-radius:16px; padding:16px; box-shadow:0 1px 2px rgba(0,0,0,.06) }
+    h1{ margin:0 0 6px 0; font-size:22px; color:#111827 }
+    .muted{ color:#6b7280; font-size:12px; margin-bottom:8px }
+    label{ display:block; margin:10px 0 6px; font-weight:600; font-size:14px }
+    input,select{ width:100%; padding:10px 12px; border-radius:10px; border:1px solid #e5e7eb; font-size:14px; background:#fff; outline:none }
+    button{ appearance:none; border:none; border-radius:12px; padding:12px 16px; font-weight:700; cursor:pointer }
+    .primary{ background:#4f46e5; color:#fff } .ghost{ background:#eef2ff; color:#111827 }
+    .row{ display:grid; grid-template-columns:1fr 1fr; gap:12px } @media(max-width:520px){ .row{ grid-template-columns:1fr } }
+    .bar{ background:#fffbe6; border-bottom:1px solid #fde68a; padding:10px 12px; display:flex; gap:8px; align-items:center; }
+    .bar input{ flex:1; border:1px dashed #f59e0b; border-radius:8px; padding:8px 10px }
+    .id-wrap{ display:flex; flex-direction:column; align-items:center; gap:10px }
+    .id-card{ width:360px; height:250px; border-radius:16px; overflow:hidden; position:relative;
+      background:linear-gradient(135deg,#4f46e5,#2563eb); color:#fff; border:1px solid #e5e7eb; box-shadow:0 2px 6px rgba(0,0,0,.08) }
+    .id-head{ display:flex; gap:10px; align-items:center; padding:10px 12px; background:rgba(255,255,255,.08) }
+    .badge{ width:40px; height:40px; border-radius:10px; display:grid; place-items:center; background:rgba(255,255,255,.25); font-weight:800 }
+    .org{ font-weight:800; line-height:1.1 } .addr{ font-size:11px; opacity:.95 } .sub{ font-size:11px; opacity:.9 }
+    .meta{ display:flex; justify-content:space-between; font-size:11px; padding:4px 12px 0 12px; color:rgba(255,255,255,.95) }
+    .body{ display:grid; grid-template-columns:100px 1fr; gap:8px; padding:8px 12px }
+    .photo{ width:92px; height:92px; border-radius:50%; overflow:hidden; border:2px solid rgba(255,255,255,.6);
+      background:rgba(255,255,255,.2); display:grid; place-items:center; font-size:12px; text-align:center }
+    .photo img{ width:100%; height:100%; object-fit:cover }
+    .row2{ display:grid; grid-template-columns:100px 1fr; gap:6px; font-size:12px; line-height:1.25 }
+    .label{ color:rgba(255,255,255,.9) } .val{ font-weight:700 }
+    .signs{ position:absolute; left:0; right:0; bottom:6px; padding:0 12px; display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px }
+    .sign{ text-align:center; color:#fff; font-size:10px }
+    .sign img{ max-height:28px; max-width:110px; object-fit:contain; display:block; margin:0 auto 2px }
+    .sign .line{ border-top:1px solid rgba(255,255,255,.7); padding-top:2px; font-weight:700; font-size:11px }
+    .actions{ display:flex; gap:10px; flex-wrap:wrap } .hint{ font-size:12px; color:#6b7280 }
+    @media print{ body *{visibility:hidden} #print-area, #print-area *{visibility:visible} #print-area{ position:absolute; inset:0; margin:auto; width:fit-content; height:fit-content } .no-print{ display:none!important } }
   </style>
 </head>
 <body>
-  <section id="splash">
-    <div class="spin-name">RF VIDEO</div>
-    <div class="muted">Loading…</div>
-  </section>
+  <div class="bar" id="sheetBar" style="display:none">
+    <div>🗂️ Google Sheet URL:</div>
+    <input id="sheetInput" placeholder="https://script.google.com/macros/s/…/exec">
+    <button id="sheetSave" class="primary">Save</button>
+  </div>
 
-  <section id="welcome" class="container hidden">
-    <div class="card" style="min-height:70dvh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;text-align:center">
-      <div class="title">Welcome</div>
-      <div class="muted">Please Login or Register</div>
-      <div id="clock" class="badge"></div>
-      <div style="display:flex;gap:10px;margin-top:10px">
-        <button class="btn" onclick="navTo('login')">Login</button>
-        <button class="btn outline" onclick="navTo('register')">Register</button>
-      </div>
-    </div>
-  </section>
-
-  <section id="login" class="container hidden">
-    <div class="topbar"><span class="back" onclick="navTo('welcome')">←</span><div class="title">Login</div></div>
-    <div class="card" style="max-width:520px;margin:10px auto">
-      <input id="l_email" class="input" placeholder="Email or Username" />
-      <div style="height:8px"></div>
-      <input id="l_pass" class="input" type="password" placeholder="Password" />
-      <div style="height:10px"></div>
-      <button class="btn" onclick="loginUser()">Submit</button>
-      <div id="l_msg" class="muted" style="margin-top:8px"></div>
-    </div>
-  </section>
-
-  <section id="register" class="container hidden">
-    <div class="topbar"><span class="back" onclick="navTo('welcome')">←</span><div class="title">Create account</div></div>
-    <div class="card" style="max-width:520px;margin:10px auto">
-      <input id="r_name" class="input" placeholder="Full name" />
-      <div style="height:8px"></div>
-      <input id="r_phone" class="input" placeholder="Phone number" />
-      <div style="height:8px"></div>
-      <input id="r_email" class="input" type="email" placeholder="Email" />
-      <div style="height:8px"></div>
-      <input id="r_photo" class="input" placeholder="Photo URL (optional)" />
-      <div style="height:8px"></div>
-      <input id="r_pass" class="input" type="password" placeholder="New password" />
-      <div style="height:8px"></div>
-      <input id="r_cpass" class="input" type="password" placeholder="Confirm password" />
-      <div style="height:10px"></div>
-      <button class="btn" onclick="registerUser()">Submit</button>
-      <div id="r_msg" class="muted" style="margin-top:8px"></div>
-    </div>
-  </section>
-
-  <section id="home" class="container hidden">
-    <div class="topbar">
-      <div class="title">RF Video</div>
-      <div class="icons">
-        <img class="icon" src="https://upload.wikimedia.org/wikipedia/commons/5/55/Magnifying_glass_icon.svg" alt="search" title="Search by UID" onclick="openSearch()"/>
-        <img class="icon" src="https://upload.wikimedia.org/wikipedia/commons/8/80/Share_icon_font_awesome.svg" alt="share" title="Share" onclick="sharePage()"/>
-      </div>
-    </div>
-
-    <div class="banner card">
-      <a id="topBanner" href="#" target="_blank" rel="noopener">
-        <img id="topBannerImg" src="" alt="banner">
-      </a>
-      <div class="caption">Featured</div>
-    </div>
-  </section>
-
-  <section id="messages" class="container hidden">
-    <div class="topbar"><span class="back" onclick="navTo('home')">←</span><div class="title">Messages</div></div>
-    <div class="card">Coming soon…</div>
-  </section>
-
-  <section id="live" class="container hidden">
-    <div class="topbar"><span class="back" onclick="navTo('home')">←</span><div class="title">Live</div></div>
-    <div class="row">
-      <div class="card">Go Live / Short Video (placeholder)</div>
-      <div class="card">Recent lives…</div>
-    </div>
-  </section>
-
-  <section id="profile" class="container hidden">
-    <div class="topbar"><span class="back" onclick="navTo('home')">←</span><div class="title">Profile</div></div>
+  <div class="wrap">
     <div class="card">
-      <div style="display:flex;gap:14px;align-items:center">
-        <div id="p_avatar" class="avatar">U</div>
-        <div>
-          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
-            <div class="title" id="p_name">User</div>
-            <span id="p_verify" class="verify">Verify: pending</span>
-          </div>
-          <div class="muted" id="p_email">email@example.com</div>
-          <div class="mono pill" id="p_uid" style="margin-top:6px">UID: -</div>
+      <h1>হিলফুল ফুজুল সুন্নি যুব ফাউন্ডেশন</h1>
+      <div class="muted">ঠিকানা: কলসি দিঘী পকেট গেইট সংলগ্ন বন্দর, চট্টগ্রাম • সাবমিটের সাথে সাথে রঙিন আইডি কার্ড</div>
+
+      <form id="memberForm" name="hfsyfForm">
+        <div class="row">
+          <div><label>পূর্ণ নাম</label><input name="fullName" required placeholder="নাম লিখুন"></div>
+          <div><label>পিতার নাম</label><input name="fatherName" required placeholder="পিতার নাম"></div>
         </div>
-      </div>
-      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px">
-        <div class="badge" id="p_balance">Balance: $0.00</div>
-        <button class="btn" onclick="navTo('withdraw')">Withdraw</button>
-        <button class="btn outline" onclick="editProfile()">Edit profile</button>
-        <button class="btn outline" onclick="changePhoto()">Change photo</button>
-        <button class="btn warn" onclick="logoutUser()">Logout</button>
-      </div>
+        <div class="row">
+          <div><label>জন্ম তারিখ</label><input type="date" name="dob" required></div>
+          <div><label>জাতীয় পরিচয়পত্র / জন্মনিবন্ধন</label><input name="nid" required placeholder="NID/BRC নম্বর"></div>
+        </div>
+        <div class="row">
+          <div>
+            <label>রক্তের গ্রুপ</label>
+            <select name="blood" required>
+              <option>A+</option><option>A-</option><option>B+</option><option>B-</option>
+              <option>O+</option><option>O-</option><option>AB+</option><option>AB-</option>
+            </select>
+          </div>
+          <div><label>মোবাইল</label><input name="mobile" required placeholder="01XXXXXXXXX"></div>
+        </div>
+        <div class="row">
+          <div><label>ঠিকানা</label><input name="address" required placeholder="ঠিকানা"></div>
+          <div><label>ছবি আপলোড (ঐচ্ছিক)</label><input type="file" id="photo" accept="image/*"></div>
+        </div>
+        <div class="row">
+          <div><label>লোগো (ঐচ্ছিক)</label><input type="file" id="logo" accept="image/*"></div>
+          <div><label>সভাপতির স্বাক্ষর (ইমেজ)</label><input type="file" id="signPresident" accept="image/*"></div>
+        </div>
+        <div class="row">
+          <div><label>সেক্রেটারির স্বাক্ষর (ইমেজ)</label><input type="file" id="signSecretary" accept="image/*"></div>
+          <div><label>সদস্যের স্বাক্ষর (ইমেজ)</label><input type="file" id="signMember" accept="image/*"></div>
+        </div>
+        <div style="margin-top:12px"><button class="primary" type="submit">সাবমিট করুন ও আইডি কার্ড তৈরি করুন</button></div>
+      </form>
     </div>
-  </section>
 
-  <section id="withdraw" class="container hidden">
-    <div class="topbar"><span class="back" onclick="navTo('profile')">←</span><div class="title">Withdraw</div></div>
-    <div class="card">
-      <div class="muted">Minimum $50</div>
-      <div style="margin:10px 0;display:flex;gap:8px;flex-wrap:wrap">
-        <label class="pill"><input type="radio" name="pm" value="bkash" checked> bKash</label>
-        <label class="pill"><input type="radio" name="pm" value="nagad"> Nagad</label>
-        <label class="pill"><input type="radio" name="pm" value="upay"> Upay</label>
-        <label class="pill"><input type="radio" name="pm" value="paypal"> PayPal</label>
-        <label class="pill"><input type="radio" name="pm" value="payoneer"> Payoneer</label>
-      </div>
-      <input id="w_name" class="input" placeholder="Account holder name" />
-      <div style="height:8px"></div>
-      <input id="w_ac" class="input" placeholder="Account number / email" />
-      <div style="height:8px"></div>
-      <input id="w_amount" class="input" type="number" placeholder="Amount in USD" />
-      <div style="height:8px"></div>
-      <input id="w_nid" class="input" placeholder="NID link (URL)" />
-      <div style="height:10px"></div>
-      <button class="btn" onclick="submitWithdraw()">Submit</button>
-      <div id="w_msg" class="muted" style="margin-top:8px"></div>
-    </div>
-  </section>
-
-  <div class="nav" id="bottomNav">
-    <div class="grid">
-      <div class="item" onclick="navTo('home')" id="tab_home">🏠<span>Home</span></div>
-      <div class="item" onclick="navTo('live')" id="tab_live">📡<span>Live</span></div>
-      <div class="item" onclick="navTo('messages')" id="tab_messages">💬<span>Messages</span></div>
-      <div class="item" onclick="navTo('profile')" id="tab_profile">👤<span>Profile</span></div>
-    </div>
-  </div>
-
-  <div id="searchModal" class="modal hidden">
-    <div class="box card">
-      <div style="display:flex;gap:8px;align-items:center">
-        <input id="s_uid" class="input mono" placeholder="Enter UID then Search" />
-        <button class="btn" onclick="searchUID()">Search</button>
-        <button class="btn outline" onclick="closeSearch()">Close</button>
-      </div>
-      <div id="s_result" style="margin-top:10px"></div>
-    </div>
-  </div>
-
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-    import { getDatabase, ref, set, get, update, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
-    import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyCid8oZ2fNng0k6j3qIbRRl0Qww3Yz5Tvk",
-      authDomain: "rf-video-8cdd3.firebaseapp.com",
-      databaseURL: "https://rf-video-8cdd3-default-rtdb.firebaseio.com",
-      projectId: "rf-video-8cdd3",
-      storageBucket: "rf-video-8cdd3.firebasestorage.app",
-      messagingSenderId: "537761009773",
-      appId: "1:537761009773:web:902551a17dc10ea93b6f64",
-      measurementId: "G-ZYCJM6K9HS"
-    };
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
-    const auth = getAuth(app);
-
-    setTimeout(()=>{ show('welcome'); }, 1000);
-    setInterval(()=>{ const c=document.getElementById('clock'); if(c) c.textContent=new Date().toLocaleString(); },1000);
-
-    const sections=['splash','welcome','login','register','home','messages','live','profile','withdraw'];
-    function show(id){
-      sections.forEach(s=>document.getElementById(s)?.classList.add('hidden'));
-      document.getElementById(id)?.classList.remove('hidden');
-      ['home','live','messages','profile'].forEach(t=>document.getElementById('tab_'+t)?.classList.toggle('active', id===t));
-      const hideNavOn=['splash','welcome','login','register']; 
-      document.getElementById('bottomNav')?.classList.toggle('hidden', hideNavOn.includes(id));
-    }
-    window.navTo=(id)=>show(id);
-
-    // ==== Firebase banners ====
-    let banners = []; let bi = -1; let bannerTimer = null;
-    function rotateBanner(){
-      if(!banners.length) return;
-      bi = (bi + 1) % banners.length;
-      const img = document.getElementById('topBannerImg');
-      const a   = document.getElementById('topBanner');
-      if(img) img.src = banners[bi].image || '';
-      if(a)   a.href  = banners[bi].link  || '#';
-    }
-    onValue(ref(db, 'banners'), (snap)=>{
-      const out = [];
-      if(snap.exists()){
-        snap.forEach(ch=>{
-          const v = ch.val() || {};
-          if(v.active === true || v.active === 'true'){
-            out.push({ image: v.image || '', link: v.link || '#' });
-          }
-        });
-      }
-      banners = out.length ? out : [
-        { image: 'https://images.unsplash.com/photo-1464375117522-1311d7f0b97e?q=80&w=1200', link: '#' }
-      ];
-      bi = -1; rotateBanner();
-      if(bannerTimer) clearInterval(bannerTimer);
-      bannerTimer = setInterval(rotateBanner, 4000);
-    });
-
-    window.openSearch=()=>document.getElementById('searchModal').classList.remove('hidden');
-    window.closeSearch=()=>document.getElementById('searchModal').classList.add('hidden');
-    window.searchUID=async()=>{
-      const uid=document.getElementById('s_uid').value.trim();
-      const box=document.getElementById('s_result'); box.innerHTML='';
-      if(!uid){ box.textContent='Enter UID first'; return; }
-      const snap=await get(ref(db,'users/'+uid));
-      if(!snap.exists()){ box.textContent='No user found.'; return; }
-      const u=snap.val();
-      box.innerHTML=`
-        <div class="card">
-          <div style="display:flex;gap:10px;align-items:center">
-            <div class="avatar" style="${u.photo?`background:url('${u.photo}') center/cover`:''}">${u.photo?'':(u.name||'U')[0].toUpperCase()}</div>
-            <div>
-              <div class="title">${u.name||'User'} ${u.verified?'<span class="verify glow">✔ Verified</span>':''}</div>
-              <div class="muted">${u.email||''}</div>
-              <div class="mono pill">UID: ${u.uid||uid}</div>
-              <div class="badge">Balance: $${Number(u.balance||0).toFixed(2)}</div>
+    <div class="card" style="margin-top:12px">
+      <div class="id-wrap">
+        <div id="print-area">
+          <div class="id-card" id="idCard">
+            <div class="id-head">
+              <div class="badge" id="badge">HF</div>
+              <div>
+                <div class="org">হিলফুল ফুজুল সুন্নি যুব ফাউন্ডেশন</div>
+                <div class="addr">কলসি দিঘী পকেট গেইট সংলগ্ন বন্দর, চট্টগ্রাম</div>
+                <div class="sub">Member Identity Card</div>
+              </div>
+            </div>
+            <div class="meta">
+              <div>Member ID: <span id="memberId">—</span></div>
+              <div>জন্ম তারিখ: <span id="cDob">—</span></div>
+            </div>
+            <div class="body">
+              <div class="photo" id="cPhoto">ছবি</div>
+              <div>
+                <div class="row2"><div class="label">নাম</div><div class="val" id="cName">—</div></div>
+                <div class="row2"><div class="label">পিতার নাম</div><div class="val" id="cFather">—</div></div>
+                <div class="row2"><div class="label">জাতীয় পরিচয়</div><div class="val" id="cNid">—</div></div>
+                <div class="row2"><div class="label">রক্তের গ্রুপ</div><div class="val" id="cBlood">—</div></div>
+                <div class="row2"><div class="label">মোবাইল</div><div class="val" id="cMobile">—</div></div>
+                <div class="row2"><div class="label">ঠিকানা</div><div class="val" id="cAddress">—</div></div>
+              </div>
+            </div>
+            <div class="signs">
+              <div class="sign"><img id="pSignImg" style="display:none"><div id="pSignPh" style="opacity:.8">স্বাক্ষর</div><div class="line">সভাপতি</div></div>
+              <div class="sign"><img id="sSignImg" style="display:none"><div id="sSignPh" style="opacity:.8">স্বাক্ষর</div><div class="line">সেক্রেটারি</div></div>
+              <div class="sign"><img id="mSignImg" style="display:none"><div id="mSignPh" style="opacity:.8">স্বাক্ষর</div><div class="line">সদস্য</div></div>
             </div>
           </div>
-        </div>`;
-    };
+        </div>
 
-    window.sharePage=async()=>{ try{ await navigator.share?.({title:'RF Video', url:location.href}); }catch(e){} };
+        <div class="actions no-print">
+          <button class="primary" id="btnPrint" disabled>Print / PDF</button>
+          <button class="ghost" id="btnPNG" disabled>Download PNG</button>
+          <button class="ghost" id="btnPNGTab" disabled>Open PNG in New Tab</button>
+        </div>
+        <div class="hint no-print">Print কাজ না করলে Download PNG / Open PNG in New Tab ব্যবহার করুন।</div>
+      </div>
+    </div>
+  </div>
 
-    onAuthStateChanged(auth, async(user)=>{
-      if(!user){ show('welcome'); return; }
-      const us=await get(ref(db,'users/'+user.uid));
-      if(!us.exists()){ show('welcome'); return; }
-      const u=us.val();
-      renderProfile(u);
-      show('home');
-    });
+<script>
+  function $(id){ return document.getElementById(id); }
 
-    window.registerUser=async()=>{
-      setText('r_msg','');
-      const name=v('r_name'), phone=v('r_phone'), email=v('r_email'), photo=v('r_photo'), pass=v('r_pass'), cpass=v('r_cpass');
-      if(!name || !email || !pass) return setText('r_msg','Fill required fields');
-      if(pass!==cpass) return setText('r_msg','Passwords do not match');
-      try{
-        const cred=await createUserWithEmailAndPassword(auth,email,pass);
-        if(photo||name) await updateProfile(cred.user,{displayName:name,photoURL:photo||undefined});
-        await set(ref(db,'users/'+cred.user.uid),{uid:cred.user.uid,name,phone,email,photo:photo||'',balance:0,verified:false,role:'user',createdAt:Date.now()});
-        show('home');
-      }catch(e){ setText('r_msg', 'Firebase: '+e.message); }
-    };
-
-    window.loginUser=async()=>{
-      setText('l_msg','');
-      const id=v('l_email'), pass=v('l_pass');
-      try{ await signInWithEmailAndPassword(auth,id,pass); show('home'); }catch(e){ setText('l_msg','Firebase: '+e.message); }
-    };
-
-    window.logoutUser=async()=>{ try{ await signOut(auth); }catch(e){} finally{ show('welcome'); } };
-
-    function renderProfile(u){
-      setText('p_name',u.name||'User'); setText('p_email',u.email||''); setText('p_balance',`Balance: $${Number(u.balance||0).toFixed(2)}`);
-      const uidEl=document.getElementById('p_uid'); if(uidEl){ uidEl.textContent='UID: '+(u.uid||auth.currentUser?.uid||''); uidEl.onclick=()=>{ navigator.clipboard.writeText(u.uid||auth.currentUser?.uid||''); uidEl.classList.add('badge'); setTimeout(()=>uidEl.classList.remove('badge'),600); }; }
-      const av=document.getElementById('p_avatar'); if(av){ if(u.photo){ av.style.backgroundImage=`url(${u.photo})`; av.style.backgroundSize='cover'; av.textContent=''; } else { av.style.backgroundImage=''; av.textContent=(u.name||'U')[0].toUpperCase(); } }
-      const vEl=document.getElementById('p_verify'); if(vEl){ if(u.verified){ vEl.textContent='✔ Verified'; vEl.classList.add('glow'); } else { vEl.textContent='Verify: pending'; vEl.classList.remove('glow'); } }
+  // Google Sheet URL store
+  const SHEET_KEY = 'hfsyf_sheet_url';
+  function getSheetURL(){ return localStorage.getItem(SHEET_KEY)||''; }
+  function ensureSheetBar(){ if(!getSheetURL()){ $('#sheetBar').style.display='flex'; } }
+  document.addEventListener('DOMContentLoaded', ensureSheetBar);
+  document.getElementById('sheetSave').addEventListener('click', () => {
+    const v = ($('#sheetInput').value||'').trim();
+    if(v.startsWith('http')){
+      localStorage.setItem(SHEET_KEY, v);
+      $('#sheetBar').style.display='none';
+      alert('Google Sheet URL saved! এখন থেকে সাবমিট করলে শিটে যাবে।');
+    }else{
+      alert('সঠিক Web App URL দিন (https://script.google.com/.../exec)');
     }
+  });
 
-    window.submitWithdraw=async()=>{
-      const user=auth.currentUser; if(!user) return setText('w_msg','Please login');
-      const amount=Number(v('w_amount')); if(isNaN(amount)||amount<50) return setText('w_msg','Minimum withdrawal is $50');
-      const us=await get(ref(db,'users/'+user.uid)); if(!us.exists()) return setText('w_msg','Profile not found');
-      const u=us.val(); if((u.balance||0)<amount) return setText('w_msg','Insufficient balance');
-      const pm=document.querySelector('input[name="pm"]:checked')?.value||'bkash';
-      const data={ uid:user.uid, name:v('w_name'), account:v('w_ac'), nid:v('w_nid'), amount, method:pm, status:'pending', createdAt:Date.now() };
-      const id='wd_'+Date.now(); await set(ref(db,'withdrawals/'+id),data); await update(ref(db,'users/'+user.uid),{balance:Number(u.balance)-amount});
-      setText('w_msg','Withdrawal requested.');
+  function nextSerial(){
+    var k='hfsyf_serial';
+    var c=parseInt(localStorage.getItem(k)||'100',10);
+    if(isNaN(c)) c=100;
+    c += 1;
+    localStorage.setItem(k,String(c));
+    return c;
+  }
+  function genMemberId(){
+    var d=new Date();
+    var y=d.getFullYear(), m=('0'+(d.getMonth()+1)).slice(-2), dd=('0'+d.getDate()).slice(-2);
+    var s=('000'+nextSerial()).slice(-3);
+    return 'HFSYF-'+y+m+dd+'-'+s;
+  }
+
+  function readAsDataURL(input, cb){
+    if(!input || !input.files || !input.files[0]){ cb(''); return; }
+    var r=new FileReader(); r.onload=function(e){ cb(e.target.result); }; r.readAsDataURL(input.files[0]);
+  }
+  function enable(el, v){ el.disabled = !v; }
+
+  var submitted=false;
+
+  document.getElementById('memberForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    var fd=new FormData(e.target);
+    $('#cName').textContent   = (fd.get('fullName')||'').trim() || '—';
+    $('#cFather').textContent = (fd.get('fatherName')||'').trim() || '—';
+    $('#cDob').textContent    = (fd.get('dob')||'') || '—';
+    $('#cNid').textContent    = (fd.get('nid')||'').trim() || '—';
+    $('#cBlood').textContent  = (fd.get('blood')||'').trim() || '—';
+    $('#cMobile').textContent = (fd.get('mobile')||'').trim() || '—';
+    $('#cAddress').textContent= (fd.get('address')||'').trim() || '—';
+    $('#memberId').textContent= genMemberId();
+
+    readAsDataURL($('#photo'), function(u){ $('#cPhoto').innerHTML = u ? '<img src="'+u+'" alt="photo">' : 'ছবি'; });
+    readAsDataURL($('#logo'),  function(u){
+      if(u){ $('#badge').style.background='#fff'; $('#badge').innerHTML='<img src="'+u+'" style="max-width:34px;max-height:34px;object-fit:contain" alt="logo">'; }
+      else { $('#badge').style.background='rgba(255,255,255,.25)'; $('#badge').textContent='HF'; }
+    });
+    readAsDataURL($('#signPresident'), function(u){ if(u){ $('#pSignImg').src=u; $('#pSignImg').style.display='block'; $('#pSignPh').style.display='none'; } else { $('#pSignImg').removeAttribute('src'); $('#pSignImg').style.display='none'; $('#pSignPh').style.display='block'; } });
+    readAsDataURL($('#signSecretary'), function(u){ if(u){ $('#sSignImg').src=u; $('#sSignImg').style.display='block'; $('#sSignPh').style.display='none'; } else { $('#sSignImg').removeAttribute('src'); $('#sSignImg').style.display='none'; $('#sSignPh').style.display='block'; } });
+    readAsDataURL($('#signMember'),    function(u){ if(u){ $('#mSignImg').src=u; $('#mSignImg').style.display='block'; $('#mSignPh').style.display='none'; } else { $('#mSignImg').removeAttribute('src'); $('#mSignImg').style.display='none'; $('#mSignPh').style.display='block'; } });
+
+    submitted = true;
+    enable($('#btnPrint'), true); enable($('#btnPNG'), true); enable($('#btnPNGTab'), true);
+    $('#idCard').scrollIntoView({behavior:'smooth', block:'center'});
+
+    const sheetUrl = getSheetURL();
+    if(sheetUrl){
+      const payload = {
+        memberId: $('#memberId').textContent || '',
+        fullName: (fd.get('fullName')||'').trim(),
+        fatherName: (fd.get('fatherName')||'').trim(),
+        dob: fd.get('dob')||'',
+        nid: (fd.get('nid')||'').trim(),
+        blood: (fd.get('blood')||'').trim(),
+        mobile: (fd.get('mobile')||'').trim(),
+        address: (fd.get('address')||'').trim()
+      };
+      fetch(sheetUrl, {
+        method: 'POST', mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      }).catch(()=>{});
+    } else {
+      alert('Google Sheet URL সেট করা নেই। উপরে হলুদ বক্সে Apps Script Web App URL পেস্ট করে Save করুন।');
+      $('#sheetBar').style.display='flex';
+    }
+  });
+
+  $('#btnPrint').addEventListener('click', function(){
+    if(!submitted) return;
+    setTimeout(function(){ window.print(); }, 50);
+  });
+
+  function nodeToPNG(cb){
+    var node=$('#idCard'); var r=node.getBoundingClientRect(); var w=r.width, h=r.height, scale=3;
+    var xml=new XMLSerializer().serializeToString(node);
+    var svg='<svg xmlns="http://www.w3.org/2000/svg" width="'+(w*scale)+'" height="'+(h*scale)+'">'+
+            '<foreignObject x="0" y="0" width="'+(w*scale)+'" height="'+(h*scale)+'" transform="scale('+scale+')">'+
+            xml+'</foreignObject></svg>';
+    var blob=new Blob([svg],{type:'image/svg+xml;charset=utf-8'}); var url=URL.createObjectURL(blob); var img=new Image();
+    img.onload=function(){
+      var c=document.createElement('canvas'); c.width=Math.floor(w*scale); c.height=Math.floor(h*scale);
+      var ctx=c.getContext('2d');
+      var g=ctx.createLinearGradient(0,0,c.width,c.height); g.addColorStop(0,'#4f46e5'); g.addColorStop(1,'#2563eb');
+      ctx.fillStyle=g; ctx.fillRect(0,0,c.width,c.height);
+      ctx.drawImage(img,0,0);
+      URL.revokeObjectURL(url);
+      try{ cb(c.toDataURL('image/png')); }catch(e){ cb(''); }
     };
+    img.onerror=function(){ cb(''); };
+    img.src=url;
+  }
 
-    function v(id){ return document.getElementById(id)?.value?.trim()||''; }
-    function setText(id,t){ const el=document.getElementById(id); if(el) el.textContent=t; }
-  </script>
+  function downloadDataUrl(png, name){
+    try{
+      var a=document.createElement('a');
+      if(typeof a.download==='undefined'){ window.open(png,'_blank'); return; }
+      a.href=png; a.download=name; document.body.appendChild(a); a.click(); a.remove();
+    }catch(e){ window.open(png,'_blank'); }
+  }
+
+  $('#btnPNG').addEventListener('click', function(){
+    if(!submitted) return;
+    nodeToPNG(function(png){
+      if(png){ downloadDataUrl(png, ($('#memberId').textContent||'card')+'.png'); }
+      else{ alert('PNG তৈরি করা গেল না। অনুগ্রহ করে Google Chrome/Edge ব্যবহার করুন।'); }
+    });
+  });
+
+  $('#btnPNGTab').addEventListener('click', function(){
+    if(!submitted) return; nodeToPNG(function(png){ if(png){ window.open(png,'_blank'); } });
+  });
+</script>
 </body>
 </html>
