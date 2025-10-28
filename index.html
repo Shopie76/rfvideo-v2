@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RF Video</title>
+  <style>
+    :root{ --brand:#1f6feb; --bg:#0b1220; --card:#111827; --text:#e5e7eb; --muted:#9ca3af; --accent:#22c55e; --danger:#ef4444;}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;background:linear-gradient(180deg,#0b1220,#0f172a 40%,#0b1220);color:var(--text)}
+    .container{max-width:960px;margin:0 auto;padding:16px}
+    .hidden{display:none !important}
+    .btn{background:var(--brand);color:#fff;border:none;border-radius:12px;padding:12px 16px;font-weight:600;cursor:pointer;box-shadow:0 10px 20px #0005}
+    .btn.outline{background:transparent;border:1px solid #334155}
+    .btn.warn{background:var(--danger)}
+    .input{width:100%;padding:12px 14px;border-radius:12px;border:1px solid #334155;background:#0b1220;color:var(--text)}
+    .card{background:rgba(17,24,39,.7);backdrop-filter:blur(6px);border:1px solid #1f2937;border-radius:16px;padding:16px;box-shadow:0 10px 30px #0006}
+    .title{font-size:28px;font-weight:800}
+    .muted{color:var(--muted)}
+    .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .topbar{display:flex;align-items:center;gap:8px}
+    .topbar .back{cursor:pointer;margin-right:4px}
+    .icons{margin-left:auto;display:flex;gap:12px;align-items:center}
+    .icon{width:24px;height:24px;filter:invert(1);cursor:pointer}
+    .banner{position:relative;height:160px;border-radius:16px;overflow:hidden}
+    .banner img{width:100%;height:100%;object-fit:cover}
+    .caption{position:absolute;left:12px;bottom:12px;background:#0007;padding:8px 10px;border-radius:10px}
+    .nav{position:fixed;left:0;right:0;bottom:0;padding:10px 12px;background:rgba(10,15,25,.85);backdrop-filter:blur(10px);border-top:1px solid #1f2937}
+    .nav .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+    .nav .item{display:flex;flex-direction:column;align-items:center;gap:6px;color:#d1d5db}
+    .nav .item.active{color:#fff}
+    .badge{display:inline-flex;align-items:center;gap:6px;background:#0b1323;border:1px solid #1f2937;border-radius:999px;padding:6px 10px}
+    .avatar{width:80px;height:80px;border-radius:50%;background:#0b1323;border:1px solid #1f2937;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:28px}
+    .verify{display:inline-flex;align-items:center;gap:6px;padding:4px 8px;border-radius:999px;border:1px solid #334155;background:#0b1323}
+    .verify.glow{box-shadow:0 0 14px #22c55e66, 0 0 30px #22c55e33}
+    .pill{padding:8px 12px;border-radius:999px;border:1px dashed #334155}
+    .mono{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace}
+    #splash{min-height:100dvh;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:20px}
+    .spin-name{font-size:42px;font-weight:900;letter-spacing:1px;display:inline-block;animation:spin 4s linear infinite}
+    @keyframes spin{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}
+    .modal{position:fixed;inset:0;background:#0008;display:flex;align-items:center;justify-content:center;padding:16px}
+    .modal .box{max-width:560px;width:100%}
+  </style>
+</head>
+<body>
+  <section id="splash">
+    <div class="spin-name">RF VIDEO</div>
+    <div class="muted">Loading…</div>
+  </section>
+
+  <section id="welcome" class="container hidden">
+    <div class="card" style="min-height:70dvh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;text-align:center">
+      <div class="title">Welcome</div>
+      <div class="muted">Please Login or Register</div>
+      <div id="clock" class="badge"></div>
+      <div style="display:flex;gap:10px;margin-top:10px">
+        <button class="btn" onclick="navTo('login')">Login</button>
+        <button class="btn outline" onclick="navTo('register')">Register</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="login" class="container hidden">
+    <div class="topbar"><span class="back" onclick="navTo('welcome')">←</span><div class="title">Login</div></div>
+    <div class="card" style="max-width:520px;margin:10px auto">
+      <input id="l_email" class="input" placeholder="Email or Username" />
+      <div style="height:8px"></div>
+      <input id="l_pass" class="input" type="password" placeholder="Password" />
+      <div style="height:10px"></div>
+      <button class="btn" onclick="loginUser()">Submit</button>
+      <div id="l_msg" class="muted" style="margin-top:8px"></div>
+    </div>
+  </section>
+
+  <section id="register" class="container hidden">
+    <div class="topbar"><span class="back" onclick="navTo('welcome')">←</span><div class="title">Create account</div></div>
+    <div class="card" style="max-width:520px;margin:10px auto">
+      <input id="r_name" class="input" placeholder="Full name" />
+      <div style="height:8px"></div>
+      <input id="r_phone" class="input" placeholder="Phone number" />
+      <div style="height:8px"></div>
+      <input id="r_email" class="input" type="email" placeholder="Email" />
+      <div style="height:8px"></div>
+      <input id="r_photo" class="input" placeholder="Photo URL (optional)" />
+      <div style="height:8px"></div>
+      <input id="r_pass" class="input" type="password" placeholder="New password" />
+      <div style="height:8px"></div>
+      <input id="r_cpass" class="input" type="password" placeholder="Confirm password" />
+      <div style="height:10px"></div>
+      <button class="btn" onclick="registerUser()">Submit</button>
+      <div id="r_msg" class="muted" style="margin-top:8px"></div>
+    </div>
+  </section>
+
+  <section id="home" class="container hidden">
+    <div class="topbar">
+      <div class="title">RF Video</div>
+      <div class="icons">
+        <img class="icon" src="https://upload.wikimedia.org/wikipedia/commons/5/55/Magnifying_glass_icon.svg" alt="search" title="Search by UID" onclick="openSearch()"/>
+        <img class="icon" src="https://upload.wikimedia.org/wikipedia/commons/8/80/Share_icon_font_awesome.svg" alt="share" title="Share" onclick="sharePage()"/>
+      </div>
+    </div>
+    <div class="banner card">
+      <img id="topBannerImg" src="https://images.unsplash.com/photo-1464375117522-1311d7f0b97e?q=80&w=1200" alt="banner">
+      <div class="caption">Featured</div>
+    </div>
+  </section>
+
+  <section id="messages" class="container hidden">
+    <div class="topbar"><span class="back" onclick="navTo('home')">←</span><div class="title">Messages</div></div>
+    <div class="card">Coming soon…</div>
+  </section>
+
+  <section id="live" class="container hidden">
+    <div class="topbar"><span class="back" onclick="navTo('home')">←</span><div class="title">Live</div></div>
+    <div class="row">
+      <div class="card">Go Live / Short Video (placeholder)</div>
+      <div class="card">Recent lives…</div>
+    </div>
+  </section>
+
+  <section id="profile" class="container hidden">
+    <div class="topbar"><span class="back" onclick="navTo('home')">←</span><div class="title">Profile</div></div>
+    <div class="card">
+      <div style="display:flex;gap:14px;align-items:center">
+        <div id="p_avatar" class="avatar">U</div>
+        <div>
+          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+            <div class="title" id="p_name">User</div>
+            <span id="p_verify" class="verify">Verify: pending</span>
+          </div>
+          <div class="muted" id="p_email">email@example.com</div>
+          <div class="mono pill" id="p_uid" style="margin-top:6px">UID: -</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px">
+        <div class="badge" id="p_balance">Balance: $0.00</div>
+        <button class="btn" onclick="navTo('withdraw')">Withdraw</button>
+        <button class="btn outline" onclick="editProfile()">Edit profile</button>
+        <button class="btn outline" onclick="changePhoto()">Change photo</button>
+        <button class="btn warn" onclick="logoutUser()">Logout</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="withdraw" class="container hidden">
+    <div class="topbar"><span class="back" onclick="navTo('profile')">←</span><div class="title">Withdraw</div></div>
+    <div class="card">
+      <div class="muted">Minimum $50</div>
+      <div style="margin:10px 0;display:flex;gap:8px;flex-wrap:wrap">
+        <label class="pill"><input type="radio" name="pm" value="bkash" checked> bKash</label>
+        <label class="pill"><input type="radio" name="pm" value="nagad"> Nagad</label>
+        <label class="pill"><input type="radio" name="pm" value="upay"> Upay</label>
+        <label class="pill"><input type="radio" name="pm" value="paypal"> PayPal</label>
+        <label class="pill"><input type="radio" name="pm" value="payoneer"> Payoneer</label>
+      </div>
+      <input id="w_name" class="input" placeholder="Account holder name" />
+      <div style="height:8px"></div>
+      <input id="w_ac" class="input" placeholder="Account number / email" />
+      <div style="height:8px"></div>
+      <input id="w_amount" class="input" type="number" placeholder="Amount in USD" />
+      <div style="height:8px"></div>
+      <input id="w_nid" class="input" placeholder="NID link (URL)" />
+      <div style="height:10px"></div>
+      <button class="btn" onclick="submitWithdraw()">Submit</button>
+      <div id="w_msg" class="muted" style="margin-top:8px"></div>
+    </div>
+  </section>
+
+  <div class="nav" id="bottomNav">
+    <div class="grid">
+      <div class="item" onclick="navTo('home')" id="tab_home">🏠<span>Home</span></div>
+      <div class="item" onclick="navTo('live')" id="tab_live">📡<span>Live</span></div>
+      <div class="item" onclick="navTo('messages')" id="tab_messages">💬<span>Messages</span></div>
+      <div class="item" onclick="navTo('profile')" id="tab_profile">👤<span>Profile</span></div>
+    </div>
+  </div>
+
+  <div id="searchModal" class="modal hidden">
+    <div class="box card">
+      <div style="display:flex;gap:8px;align-items:center">
+        <input id="s_uid" class="input mono" placeholder="Enter UID then Search" />
+        <button class="btn" onclick="searchUID()">Search</button>
+        <button class="btn outline" onclick="closeSearch()">Close</button>
+      </div>
+      <div id="s_result" style="margin-top:10px"></div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getDatabase, ref, set, get, update, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+    import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCid8oZ2fNng0k6j3qIbRRl0Qww3Yz5Tvk",
+      authDomain: "rf-video-8cdd3.firebaseapp.com",
+      databaseURL: "https://rf-video-8cdd3-default-rtdb.firebaseio.com",
+      projectId: "rf-video-8cdd3",
+      storageBucket: "rf-video-8cdd3.firebasestorage.app",
+      messagingSenderId: "537761009773",
+      appId: "1:537761009773:web:902551a17dc10ea93b6f64",
+      measurementId: "G-ZYCJM6K9HS"
+    };
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+    const auth = getAuth(app);
+
+    setTimeout(()=>{ show('welcome'); }, 1000);
+    setInterval(()=>{ const c=document.getElementById('clock'); if(c) c.textContent=new Date().toLocaleString(); },1000);
+
+    const sections=['splash','welcome','login','register','home','messages','live','profile','withdraw'];
+    function show(id){
+      sections.forEach(s=>document.getElementById(s)?.classList.add('hidden'));
+      document.getElementById(id)?.classList.remove('hidden');
+      ['home','live','messages','profile'].forEach(t=>document.getElementById('tab_'+t)?.classList.toggle('active', id===t));
+      const hideNavOn=['splash','welcome','login','register']; 
+      document.getElementById('bottomNav')?.classList.toggle('hidden', hideNavOn.includes(id));
+    }
+    window.navTo=(id)=>show(id);
+
+    const banners=[
+      'https://images.unsplash.com/photo-1464375117522-1311d7f0b97e?q=80&w=1200',
+      'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?q=80&w=1200',
+      'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=80&w=1200'
+    ];
+    let bi=0; setInterval(()=>{ const el=document.getElementById('topBannerImg'); if(el){ bi=(bi+1)%banners.length; el.src=banners[bi]; } },3000);
+
+    window.openSearch=()=>document.getElementById('searchModal').classList.remove('hidden');
+    window.closeSearch=()=>document.getElementById('searchModal').classList.add('hidden');
+    window.searchUID=async()=>{
+      const uid=document.getElementById('s_uid').value.trim();
+      const box=document.getElementById('s_result'); box.innerHTML='';
+      if(!uid){ box.textContent='Enter UID first'; return; }
+      const snap=await get(ref(db,'users/'+uid));
+      if(!snap.exists()){ box.textContent='No user found.'; return; }
+      const u=snap.val();
+      box.innerHTML=`
+        <div class="card">
+          <div style="display:flex;gap:10px;align-items:center">
+            <div class="avatar" style="${u.photo?`background:url('${u.photo}') center/cover`:''}">${u.photo?'':(u.name||'U')[0].toUpperCase()}</div>
+            <div>
+              <div class="title">${u.name||'User'} ${u.verified?'<span class="verify glow">✔ Verified</span>':''}</div>
+              <div class="muted">${u.email||''}</div>
+              <div class="mono pill">UID: ${u.uid||uid}</div>
+              <div class="badge">Balance: $${Number(u.balance||0).toFixed(2)}</div>
+            </div>
+          </div>
+        </div>`;
+    };
+
+    window.sharePage=async()=>{ try{ await navigator.share?.({title:'RF Video', url:location.href}); }catch(e){} };
+
+    onAuthStateChanged(auth, async(user)=>{
+      if(!user){ show('welcome'); return; }
+      const us=await get(ref(db,'users/'+user.uid));
+      if(!us.exists()){ show('welcome'); return; }
+      const u=us.val();
+      renderProfile(u);
+      show('home');
+    });
+
+    window.registerUser=async()=>{
+      setText('r_msg','');
+      const name=v('r_name'), phone=v('r_phone'), email=v('r_email'), photo=v('r_photo'), pass=v('r_pass'), cpass=v('r_cpass');
+      if(!name || !email || !pass) return setText('r_msg','Fill required fields');
+      if(pass!==cpass) return setText('r_msg','Passwords do not match');
+      try{
+        const cred=await createUserWithEmailAndPassword(auth,email,pass);
+        if(photo||name) await updateProfile(cred.user,{displayName:name,photoURL:photo||undefined});
+        await set(ref(db,'users/'+cred.user.uid),{uid:cred.user.uid,name,phone,email,photo:photo||'',balance:0,verified:false,role:'user',createdAt:Date.now()});
+        show('home');
+      }catch(e){ setText('r_msg', 'Firebase: '+e.message); }
+    };
+
+    window.loginUser=async()=>{
+      setText('l_msg','');
+      const id=v('l_email'), pass=v('l_pass');
+      try{ await signInWithEmailAndPassword(auth,id,pass); show('home'); }catch(e){ setText('l_msg','Firebase: '+e.message); }
+    };
+
+    window.logoutUser=async()=>{ try{ await signOut(auth); }catch(e){} finally{ show('welcome'); } };
+
+    function renderProfile(u){
+      setText('p_name',u.name||'User'); setText('p_email',u.email||''); setText('p_balance',`Balance: $${Number(u.balance||0).toFixed(2)}`);
+      const uidEl=document.getElementById('p_uid'); if(uidEl){ uidEl.textContent='UID: '+(u.uid||auth.currentUser?.uid||''); uidEl.onclick=()=>{ navigator.clipboard.writeText(u.uid||auth.currentUser?.uid||''); uidEl.classList.add('badge'); setTimeout(()=>uidEl.classList.remove('badge'),600); }; }
+      const av=document.getElementById('p_avatar'); if(av){ if(u.photo){ av.style.backgroundImage=`url(${u.photo})`; av.style.backgroundSize='cover'; av.textContent=''; } else { av.style.backgroundImage=''; av.textContent=(u.name||'U')[0].toUpperCase(); } }
+      const vEl=document.getElementById('p_verify'); if(vEl){ if(u.verified){ vEl.textContent='✔ Verified'; vEl.classList.add('glow'); } else { vEl.textContent='Verify: pending'; vEl.classList.remove('glow'); } }
+    }
+
+    window.editProfile=async()=>{
+      const u=auth.currentUser; if(!u) return;
+      const name=prompt('New name? leave blank to keep', u.displayName||'');
+      if(name===null) return;
+      await update(ref(db,'users/'+u.uid),{name:name||undefined});
+      const snap=await get(ref(db,'users/'+u.uid)); renderProfile(snap.val());
+    };
+    window.changePhoto=async()=>{
+      const u=auth.currentUser; if(!u) return;
+      const url=prompt('Photo URL? (direct link)', '');
+      if(url===null) return;
+      await update(ref(db,'users/'+u.uid),{photo:url});
+      const snap=await get(ref(db,'users/'+u.uid)); renderProfile(snap.val());
+    };
+
+    window.submitWithdraw=async()=>{
+      const user=auth.currentUser; if(!user) return setText('w_msg','Please login');
+      const amount=Number(v('w_amount')); if(isNaN(amount)||amount<50) return setText('w_msg','Minimum withdrawal is $50');
+      const us=await get(ref(db,'users/'+user.uid)); if(!us.exists()) return setText('w_msg','Profile not found');
+      const u=us.val(); if((u.balance||0)<amount) return setText('w_msg','Insufficient balance');
+      const pm=document.querySelector('input[name="pm"]:checked')?.value||'bkash';
+      const data={ uid:user.uid, name:v('w_name'), account:v('w_ac'), nid:v('w_nid'), amount, method:pm, status:'pending', createdAt:Date.now() };
+      const id='wd_'+Date.now(); await set(ref(db,'withdrawals/'+id),data); await update(ref(db,'users/'+user.uid),{balance:Number(u.balance)-amount});
+      setText('w_msg','Withdrawal requested.');
+    };
+
+    function v(id){ return document.getElementById(id)?.value?.trim()||''; }
+    function setText(id,t){ const el=document.getElementById(id); if(el) el.textContent=t; }
+  </script>
+</body>
+</html>
